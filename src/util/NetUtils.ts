@@ -65,6 +65,8 @@ function update(user: User): Promise<void> {
   });
 }
 
+export { users};
+
 export default {
   add,
   remove,

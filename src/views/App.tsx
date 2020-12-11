@@ -9,7 +9,7 @@ import _ from "lodash";
 import { UserList } from "./UserList";
 import { UserEdit } from "./UserEdit";
 
-function UserRouter() {
+function App() {
   return (
     <BrowserRouter>
       <Switch>
@@ -24,4 +24,4 @@ function UserRouter() {
   );
 }
 
-export default UserRouter;
+export default App;

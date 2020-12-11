@@ -3,9 +3,11 @@ import { User } from "../data/User";
 import { Link } from "react-router-dom";
 import DataUtils from "../util/DataUtils";
 import { UserRow } from "./UserRow";
+import { useUsers } from "../hook/useUsers";
 
 export function UserList() {
-  const [list, updateList] = useState([] as Array<User>);
+  // const [list, updateList] = useState([] as Array<User>);
+  const [list, updateList] = useUsers();
 
   const handleDelete = async (user: User) => {
     await DataUtils.remove(user);
@@ -17,8 +19,6 @@ export function UserList() {
     );
   });
   const initData = async () => {
-    console.log("init data");
-    // 
     // 异步获取
     const result = await DataUtils.getAll();
     updateList(result);
@@ -33,7 +33,7 @@ export function UserList() {
       </Link>
       <table className="table">
         <thead className="thead">
-          <UserRow callback={() => { }}></UserRow>
+          <UserRow callback={() => {}}></UserRow>
         </thead>
         <tbody className="tbody" key={users.length}>
           {users}
