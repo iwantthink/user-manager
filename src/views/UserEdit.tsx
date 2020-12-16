@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { User } from "../data/User";
-import {
-  useHistory,
-  useLocation
-} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import DataUtils from "../util/DataUtils";
+import { useDispatch } from "react-redux";
+import { add, remove, update } from "../redux/usersSlice";
 
 export function UserEdit() {
+  const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
+
   let defaultUser: User | undefined;
   if (location.state) {
     defaultUser = location.state as User;
   }
-  const history = useHistory();
   const [nickName, setNickName] = useState(
     defaultUser ? defaultUser.nickName : ""
   );
@@ -28,9 +29,9 @@ export function UserEdit() {
     (async () => {
       if (defaultUser) {
         defaultUser = { ...defaultUser, nickName, name, mail };
-        await DataUtils.update(defaultUser);
+        dispatch(update(defaultUser));
       } else {
-        await DataUtils.add({ nickName, name, mail });
+        dispatch(add({ nickName, name, mail }));
       }
       history.push("/");
     })();
